@@ -47,12 +47,47 @@ BiTree BST_Search_recursion(BiTree T, KeyType key, BiTree& p) {
 	if (T == NULL)
 		return p;
 	if (key < T->key) {
-		return BST_Search_recursion(T->lchild, key, p);
+		return BST_Search_recursion(T->lchild, key, p);//若parent传的是T，则会返回自己
 	}if (key > T->key) {
 		return BST_Search_recursion(T->rchild, key, p);
 	}
 	else {
 		return p;
+	}
+}
+//中序遍历
+void InOrder(BiTree T) {
+	if (NULL != T) {//递归需要结束条件
+		InOrder(T->lchild);
+		printf("%3d", T->key);
+		InOrder(T->rchild);
+	}
+}
+void DeleteNode(BiTree& root, KeyType x) {//有点复杂
+	if (NULL == root) {
+		return;
+	}
+	if (x < root->key) DeleteNode(root->lchild, x);
+	else if (x > root->key) DeleteNode(root->rchild, x);
+	else {//找到了相应的元素，都是叶子结点
+		if (NULL == root->lchild) {
+			BiTree tempNode = root;
+			root = root->rchild;
+			free(tempNode);
+		}
+		else if (NULL == root->rchild) {
+			BiTree tempNode = root;
+			root = root->lchild;
+			free(tempNode);
+		}
+		else {
+			BiTree tempNode = root->lchild;
+			if (NULL != tempNode->rchild) {
+				tempNode = tempNode->rchild;//交换找到的值和叶子结点
+			}
+			root->key = tempNode->key;
+			DeleteNode(root->lchild, tempNode->key);//重新进入递归
+		}
 	}
 }
 int main() {
@@ -61,6 +96,7 @@ int main() {
 	BiTree search;
 	KeyType str[] = { 54,20,66,40,28,79,58 };
 	Creat_BST(T, str,7);
+	InOrder(T);
 	printf("\n");
 	search = BST_Search(T, 40, parent);
 	if (search)
@@ -70,4 +106,5 @@ int main() {
 	else {
 		printf("未找到对应结点\n");
 	}
+
 }
