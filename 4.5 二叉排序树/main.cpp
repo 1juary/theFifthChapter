@@ -100,7 +100,7 @@ int main()
 	search=BST_Search(T,40,parent);
 	if(search)
 	{
-		printf("找到对应结点，值=%d\n",search->key);
+		printf("找到对应父结点，值=%d\n",search->key);
 	}else{
 		printf("未找到对应结点\n");
 	}
