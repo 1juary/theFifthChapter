@@ -7,9 +7,9 @@ typedef struct BSTNode {//树的标准结构体
 	struct BSTNode* lchild, * rchild;
 }BSTNode,*BiTree;
 
-int BST_insert(BiTree& T, KeyType k) {
+int BST_insert(BiTree& T, KeyType k) {//插入的时候按序成树，用到递归
 	if (NULL == T) {
-		T = (BiTree)malloc(sizeof(BSTNode));//申请空间作根
+		T = (BiTree)malloc(sizeof(BSTNode));//申请空间作根,第一个元素，进入成为根结点
 		T->key = k;
 		T->lchild = T->rchild = NULL;//进入递归时，左右子树设为null
 		return 1;//表示插入成功
@@ -21,6 +21,7 @@ int BST_insert(BiTree& T, KeyType k) {
 	else
 		return BST_insert(T->rchild, k);
 }
+
 void Creat_BST(BiTree& T, KeyType str[], int n) {
 	T = NULL;
 	int i = 0;
@@ -63,6 +64,14 @@ void InOrder(BiTree T) {
 		InOrder(T->rchild);
 	}
 }
+//前序遍历
+void PreOrder(BiTree T) {
+	if (NULL != T) {
+		printf("%3d", T->key);
+		PreOrder(T->lchild);
+		PreOrder(T->rchild);
+	}
+}
 void DeleteNode(BiTree& root, KeyType x) {//有点复杂
 	if (NULL == root) {
 		return;
@@ -98,6 +107,8 @@ int main() {
 	Creat_BST(T, str,7);
 	InOrder(T);
 	printf("\n");
+	PreOrder(T);
+	printf("\n");
 	search = BST_Search(T, 40, parent);
 	if (search)
 	{
@@ -106,5 +117,8 @@ int main() {
 	else {
 		printf("未找到对应结点\n");
 	}
-
+	DeleteNode(T, 20);
+	InOrder(T);
+	printf("\n");
+	system("pause");
 }
