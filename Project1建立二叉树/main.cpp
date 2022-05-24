@@ -67,7 +67,10 @@ void LevelOrder(BiTree T)
 	}
 }
 
-
+//初始化二叉树
+//void InitBiTree(BiTree &T) {     //ptag_t 辅助队列可以在函数内实现
+//
+//}
 
 int main() {
 	BiTree pnew;       
