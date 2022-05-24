@@ -13,8 +13,8 @@ int BST_insert(BiTree& T, KeyType k) {          //插入的时候按序成树，用到递归
 	if (NULL == T) {
 		T = (BiTree)malloc(sizeof(BSTNode));    //申请空间作根,第一个元素，进入成为根结点
 		T->key = k;
-		T->lchild = T->rchild = NULL;           //进入递归时，左右子树设为null
-		return 1;                               //表示插入成功
+		T->lchild = T->rchild = NULL;           //进入递归时，左右子树设为null。
+		return 1;//表示插入成功                 //malloc函数与calloc不同，不会把内存置为0(null)，所以要设lchild/rchild为null
 	}
 	else if (k == T->key)                       //与根元素相同
 		return 0;
@@ -111,7 +111,7 @@ int main() {
 	BiTree T;                                     //指向树根
 	BiTree parent;
 	BiTree search;                               //返回值
-	KeyType str[] = { 54,20,66,40,28,79,58 };
+	KeyType str[] = { 54,20,66,40,28,79,58 };    //固定数组，也可以在Creat_BST()函数中scanf()读取数据
 	Creat_BST(T, str,7);
 	InOrder(T);
 	printf("\n");
