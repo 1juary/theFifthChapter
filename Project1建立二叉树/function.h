@@ -9,9 +9,9 @@ typedef struct BiTNode {
 }BiTNode, * BiTree;
 
 typedef struct tag {
-	BiTree p;//树的某一个结点的地址值
+	BiTree p;// 存储树的某一个结点的地址值
 	struct tag* pnext;
-}tag_t, * ptag_t;
+}tag_t, *ptag_t;
 
 //栈的相关数据结构
 #define MaxSize 50

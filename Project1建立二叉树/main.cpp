@@ -32,7 +32,7 @@ void PostOrder(BiTree p)
 }
 
 
-//中序遍历
+//中序遍历    使用辅助栈
 void InOrder2(BiTree T) {
 	SqStack S;
 	InitStack(S); BiTree p = T;
@@ -49,7 +49,7 @@ void InOrder2(BiTree T) {
 	}
 }
 
-//中序遍历
+//层序遍历   使用辅助队列
 void LevelOrder(BiTree T)
 {
 	LinkQueue Q;//辅助队列
@@ -67,40 +67,42 @@ void LevelOrder(BiTree T)
 	}
 }
 
+
+
 int main() {
-	BiTree pnew;
+	BiTree pnew;       
 	int i, j, pos;
 	char c;
 	BiTree tree = NULL;//树根，为空
 	ptag_t phead = NULL, ptail = NULL, listpnew = NULL ,pcur = NULL;//ptag是辅助队列结构体 phead就是队列头，tail是队列尾
-	//abcddfghij 将要输入的元素
-while (scanf("%c", &c) != EOF) {
+	//abcddfghij 将要输入的元素                                     //输入效果，层序输入，没有排序
+	while (scanf("%c", &c) != EOF) {
 		if ('\n' == c) {
 			break;
 		}
-		pnew = (BiTree)calloc(1, sizeof(BiTNode));
+		pnew = (BiTree)calloc(1, sizeof(BiTNode));//树的结点
 		//calloc 申请空间，全赋0
 		pnew->c = c;//放入数据
-		listpnew = (ptag_t)calloc(1, sizeof(tag));//给队列中的元素，申请空间
-		listpnew->p = pnew;//队列里放结点地址
+		listpnew = (ptag_t)calloc(1, sizeof(tag));//给辅助队列中的元素，申请空间
+		listpnew->p = pnew;//队列里放结点地址   p是struct tag结构体中 BiTree树的结点
 		if (NULL == tree) {//树根为空
-			tree = pnew;
+			tree = pnew;             //结构体 示意图见 笔记
 			phead = listpnew;
 			ptail = listpnew;
 			pcur = listpnew;
-			continue;//回到读取数据
+			continue;               //回到读取数据
 		}
-		else {//树根非空
-			ptail->pnext = listpnew;
-			ptail = listpnew;
+		else {                      //树根非空
+			ptail->pnext = listpnew;  //没有赋值的结点 next 为NULL
+			ptail = listpnew;         //尾结点永远指向最后结点
 		}//pcur始终指向要插入的结点的位置
 		if (NULL == pcur->p->lchild) {//若当前所指的元素的左子树没有元素，就把新扫描到的元素放入该位置
-			pcur->p->lchild = pnew;
+			pcur->p->lchild = pnew;   // tree = pnew,已经被指向tree ,BiTree tree 建立二叉树
 		}
 		else if(NULL == pcur->p->rchild)
 		{
 			pcur->p->rchild = pnew;
-			pcur = pcur->pnext;
+			pcur = pcur->pnext;       
 		}
 	}
 	printf("--------前序遍历----------\n");//也叫先序遍历，先打印当前结点，打印左孩子，打印右孩子
