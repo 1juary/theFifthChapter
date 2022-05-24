@@ -83,8 +83,8 @@ int main() {
 		if ('\n' == c) {
 			break;
 		}
-		pnew = (BiTree)calloc(1, sizeof(BiTNode));//树的结点
-		//calloc 申请空间，全赋0
+		pnew = (BiTree)calloc(1, sizeof(BiTNode));//树的结点,calloc,默认BiTree的左右子树全是null
+		//calloc 申请空间，全赋0                 //(struct BiTNode* lchild)也在BiTree结构体中
 		pnew->c = c;//放入数据
 		listpnew = (ptag_t)calloc(1, sizeof(tag));//给辅助队列中的元素，申请空间
 		listpnew->p = pnew;//队列里放结点地址   p是struct tag结构体中 BiTree树的结点
@@ -105,7 +105,7 @@ int main() {
 		else if(NULL == pcur->p->rchild)
 		{
 			pcur->p->rchild = pnew;
-			pcur = pcur->pnext;       
+			pcur = pcur->pnext;       //此时，pcur->p->l/rchild  = null
 		}
 	}
 	printf("--------前序遍历----------\n");//也叫先序遍历，先打印当前结点，打印左孩子，打印右孩子
